@@ -1,6 +1,10 @@
 import Head from 'next/head'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import News from '../components/News';
+import Youtube from '../components/Youtube';
+import Twitter from '../components/Twitter';
+import Merch from '../components/Merch';
 
 
 export default function Home() {
@@ -23,7 +27,17 @@ export default function Home() {
 
       <Header />
       <main>
-        <p className='text-blue-500'>Hello World</p>
+        {/* News */}
+        <News />
+
+        {/* YouTube channels */}
+        <Youtube />
+
+        {/* Twitter */}
+        <Twitter />
+
+        {/* Merch */}
+        <Merch />
       </main>
       <Footer />
     </div>
