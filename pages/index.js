@@ -23,7 +23,7 @@ export default function Home() {
 
       <Header />
       <main>
-        <p className='text-blue-500'>test</p>
+        <p className='text-blue-500'>Hello World</p>
       </main>
       <Footer />
     </div>
