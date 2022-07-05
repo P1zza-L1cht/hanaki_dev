@@ -20,7 +20,7 @@ export default function Twitter() {
         </div>
       </div>
       <div className="h-[85%] w-[90%] md:w-[70%] mx-auto overflow-y-auto">
-        <a class="twitter-timeline" href="https://twitter.com/rin_vt32?ref_src=twsrc%5Etfw">Tweets by rin_vt32</a>
+        <a className="twitter-timeline" href="https://twitter.com/rin_vt32?ref_src=twsrc%5Etfw">Tweets by rin_vt32</a>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     </div>
