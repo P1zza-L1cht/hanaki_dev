@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+  .hoverEffect{
+    @apply
+    cursor-pointer
+    hover:bg-red-400
+    rounded-full
+    w-[52px]
+    xl:w-auto
+    h-[52px]
+    xl:h-auto
+    xl:p-3
+    transition
+    duration-500
+    ease-out
+  }
+}

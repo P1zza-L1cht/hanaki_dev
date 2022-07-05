@@ -9,7 +9,7 @@ import Merch from '../components/Merch';
 
 export default function Home() {
   return (
-    <div>
+    <div className='w-full'>
       <Head>
         <meta charSet='utf-8' />
         <title>Hanaki Official website</title>
