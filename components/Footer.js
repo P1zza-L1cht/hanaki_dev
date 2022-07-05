@@ -3,7 +3,7 @@ import { faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 export default function Footer() {
   return (
-    <footer className="w-full h-[135px] bg-red-300 relative">
+    <footer className="w-full h-[135px] bg-pink-300 relative">
       <div className="flex flex-col items-center py-2 px-3">
         <h4 className="text-xl font-bold">Social Media</h4>
         <div className="h-[32px] w-full flex items-center justify-center pt-2">
