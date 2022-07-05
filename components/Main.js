@@ -7,7 +7,7 @@ export default function Main() {
   return (
     <div>
       {/* main visual */}
-      <div className=''>
+      <div className='w-full'>
         <img
           src="/images/main_pc.png"
           alt="Top Visual"
