@@ -8,10 +8,9 @@
     cursor-pointer
     hover:bg-red-400
     rounded-full
-    w-[52px]
-    xl:w-auto
-    h-[52px]
-    xl:h-auto
+    w-auto
+    h-auto
+    py-2
     xl:p-3
     transition
     duration-500
