@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faYoutube } from "@fortawesome/free-brands-svg-icons"
 
 export default function Youtube({movieLists}) {
-  console.log(movieLists)
   return (
     <div className="h-[500px] lg:h-[800px] w-full bg-orange-200 py-3 px-2">
       <div className="flex items-center justify-center w-[100%]">
