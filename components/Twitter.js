@@ -7,8 +7,8 @@ export default function Twitter() {
       <div className="flex items-center w-full h-[10%]">
         <h2 className="text-2xl font-bold ml-8 md:ml-16">
           Twitter
-          <FontAwesomeIcon icon={ faTwitter } className="mx-2 text-blue-600"/>
         </h2>
+        <FontAwesomeIcon icon={ faTwitter } className="mx-2 text-blue-600"/>
         <div className="ml-auto px-0 mr-8 md:mr-16">
           <a
             className="twitter-follow-button hoverEffect"
