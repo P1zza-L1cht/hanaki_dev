@@ -3,6 +3,8 @@ import Youtube from '../components/Youtube';
 import Twitter from '../components/Twitter';
 import Merch from '../components/Merch';
 
+const YOUTUBE_CHANNEL_API = 'https://www.googleapis.com/youtube/v3/channels';
+
 export default function Main() {
   return (
     <div>
