@@ -10,12 +10,11 @@ import { getAnalytics } from "firebase/analytics";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "website-hanaki.firebaseapp.com",
-  projectId: "website-hanaki",
-  storageBucket: "website-hanaki.appspot.com",
-  messagingSenderId: "271413400924",
-  appId: "1:271413400924:web:a6aebd96ae4daeac5ddd99",
-  measurementId: "G-5ZQVXTQJH9"
+  authDomain: "webpage-hanaki.firebaseapp.com",
+  projectId: "webpage-hanaki",
+  storageBucket: "webpage-hanaki.appspot.com",
+  messagingSenderId: "1008026214553",
+  appId: "1:1008026214553:web:d3cd9ca35e05e8e9d65808"
 };
 
 // Initialize Firebase

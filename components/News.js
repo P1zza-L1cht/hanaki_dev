@@ -7,8 +7,8 @@ export default function News() {
       <div className="flex items-center justify-center my-2">
         <h2 className="text-2xl font-bold">
           Information
-          <FontAwesomeIcon icon={faCircleInfo} className="text-emerald-600 px-2"/>
         </h2>
+        <FontAwesomeIcon icon={faCircleInfo} className="text-emerald-600 px-2"/>
       </div>
       <div className="w-full h-full overflow-y-auto">
 

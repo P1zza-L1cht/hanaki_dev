@@ -7,8 +7,8 @@ export default function Merch() {
       <div className="flex items-center justify-center my-2">
         <h2 className="text-2xl font-bold">
           Merch/CDs
-          <FontAwesomeIcon icon={faCompactDisc} className="text-black px-2" />
         </h2>
+        <FontAwesomeIcon icon={faCompactDisc} className="text-black px-2" />
       </div>
       <div className="w-full h-[90%] overflow-y-auto mt-3 flex flex-row flex-wrap ">
 
