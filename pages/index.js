@@ -3,7 +3,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Main from '../components/Main';
 
-export default function Home() {
+export default function Home({movieLists}) {
+  console.log("movie", movieLists);
   return (
     <div className='w-full'>
       <Head>
@@ -27,3 +28,16 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getServerSideProps() {
+  const movieLists = await fetch(
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL8ZgeeHTO61CDsP5_Pe3qJxsxTgtZLczc&maxResults=25&key=${process.env.YOUTUBE_API_KEY}`
+  ).then((res) => res.json());
+
+  return{
+    props: {
+      movieLists,
+    },
+  };
+}
+
