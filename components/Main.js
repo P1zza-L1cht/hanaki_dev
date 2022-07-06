@@ -3,9 +3,7 @@ import Youtube from '../components/Youtube';
 import Twitter from '../components/Twitter';
 import Merch from '../components/Merch';
 
-const YOUTUBE_CHANNEL_API = 'https://www.googleapis.com/youtube/v3/channels';
-
-export default function Main() {
+export default function Main({movieLists}) {
   return (
     <div>
       {/* main visual */}
@@ -23,7 +21,7 @@ export default function Main() {
         </div>
         <div className='col-start-2 col-end-3 row-start-2 row-end-4 mt-4'>
           {/* Youtebe */}
-          <Youtube />
+          <Youtube movieLists={movieLists}/>
         </div>
       </div>
       <div className='sm:grid grid-cols-2 grid-rows-3 py-3 mx-4 md:mt-[100px] mb-4 gap-4'>
