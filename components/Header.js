@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
+import { useSession, signOut } from "next-auth/react";
 
 export default function Header() {
   const router = useRouter();
+  const { data: session} = useSession();
 
   return (
       <header className='flex flex-col md:flex-row  items-center w-full h-[60px] md:h-[80px] py-2 px-10 bg-pink-300 sticky top-0 z-50'>
@@ -17,6 +19,9 @@ export default function Header() {
           <a href="https://www.youtube.com/channel/UCLogCKK4LrSGyRirmfIBl1w" className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>Channel</a>
           <p className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>News</p>
           <p className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>Contact</p>
+          {session && (
+            <p onClick={signOut} className='hoverEffect w-[120px] text-center mr-4 bg-pink-100'>Sign out</p>
+          )}
         </nav>
       </header>
   );
