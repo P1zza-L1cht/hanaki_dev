@@ -30,7 +30,7 @@ export default function Home({movieLists}) {
 
 export async function getServerSideProps() {
   const movieLists = await fetch(
-    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL8ZgeeHTO61CDsP5_Pe3qJxsxTgtZLczc&maxResults=20&key=${process.env.FIREBASE_API_KEY}`
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL8ZgeeHTO61CDsP5_Pe3qJxsxTgtZLczc&maxResults=20&key=${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`
   ).then((res) => res.json());
 
   return{
