@@ -28,12 +28,26 @@ export default function MerchandiseForm() {
           </label>
           <textarea
             type="textarea"
+            rows="4"
             className="
               bg-gray-50 border border-gray-300
               text-gray-900 text-sm rounded-lg
               focus:ring-blue-500 focus:border-blue-500
               block w-full p-2.5"
             />
+        </div>
+        <div className="mb-3">
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            サイトURL
+          </label>
+          <input
+            type="text"
+            className="
+              bg-gray-50 border border-gray-300
+              text-gray-900 text-sm rounded-lg
+              focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            placeholder="URL"
+          />
         </div>
         <div className="mb-6">
           <FontAwesomeIcon icon={faPhotoFilm} className="h-10 w-10 hoverEffect p-2 text-blue-600 hover:bg-blue-100"/>
