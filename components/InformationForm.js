@@ -11,11 +11,12 @@ export default function InformationForm() {
   const [content, setContent] = useState("");
 
   const sendPost = async() => {
-    const docRef = await addDoc(collection(db, "info"), {
+    const docRef = await addDoc(collection(db, "news"), {
       id: session.user.uid,
       title: title,
       content: content,
       timestamp: serverTimestamp(),
+      name: session.user.username,
     });
 
     setTitle("");
