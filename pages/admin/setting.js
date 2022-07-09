@@ -47,6 +47,7 @@ export default function setting({providers}) {
                   </div>
                 ))}
               </div>
+              <img src="/images/hanaki_def.png" alt="花木リン キャラ" />
             </div>
           </>
         )}
