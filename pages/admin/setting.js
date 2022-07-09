@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 
 export default function setting() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [formSelect, setFormSelect] = useState(true);
 
   return (
