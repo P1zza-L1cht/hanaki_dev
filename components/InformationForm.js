@@ -1,9 +1,24 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhotoFilm, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from "next-auth/react";
+import { useState } from 'react';
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, storage } from "../firebase";
 
 export default function InformationForm() {
   const { data: session } = useSession();
+  const [ title, setTitle ] = useState("");
+  const [ content, setContent ] = useState("");
+
+  console.log(session, title, content);
+
+  const sendPost = async() => {
+    const docRef = await addDoc(collection(db, "news"), {
+      title: title,
+      content: content,
+      timestamp: serverTimestamp(),
+    });
+  }
 
   return (
     <div className="flex flex-col ">
@@ -18,6 +33,8 @@ export default function InformationForm() {
           </label>
           <input
             type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
             className="
               bg-gray-50 border border-gray-300
               text-gray-900 text-sm rounded-lg
@@ -31,6 +48,8 @@ export default function InformationForm() {
           <textarea
             type="textarea"
             rows="4"
+            onChange={(e) => setContent(e.target.value)}
+            value={content}
             className="
               bg-gray-50 border border-gray-300
               text-gray-900 text-sm rounded-lg
@@ -47,6 +66,7 @@ export default function InformationForm() {
         </div>
         <button
           type="submit"
+          onClick={ sendPost }
           className="
           text-white bg-blue-700 hover:bg-blue-800
             focus:ring-4 focus:outline-none focus:ring-blue-300
