@@ -20,7 +20,7 @@ export default function InformationForm() {
     if(loading) return;
     setLoading(true);
 
-    const docRef = await addDoc(collection(db, "/news"), {
+    const docRef = await addDoc(collection(db, "news"), {
       id: session.user.uid,
       title: title,
       content: content,
@@ -28,11 +28,11 @@ export default function InformationForm() {
       username: session.user.username,
     });
 
-    const imageRef = ref(storage, `/news/${docRef.id}/image`);
+    const imageRef = ref(storage, `news/${docRef.id}/image`);
     if(photoFile){
       await uploadString(imageRef, photoFile, "data_url").then(async()=>{
         const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "/news", docRef.id), {
+        await updateDoc(doc(db, "news", docRef.id), {
           image: downloadURL,
         })
       })
