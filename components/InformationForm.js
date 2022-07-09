@@ -1,37 +1,46 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhotoFilm, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { useState, useRef } from 'react';
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { db, storage } from "../firebase";
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { useState, useRef } from 'react';
+import { db, storage } from "../firebase";
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, uploadString } from 'firebase/storage';
+import { useSession } from "next-auth/react";
 
 export default function InformationForm() {
+  const {data: session} = useSession();
   const [ title, setTitle ] = useState("");
   const [ content, setContent ] = useState("");
   const [ photoFile, setPhotoFile ] = useState(null);
+  const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
+  console.log(session, title, content);
 
-  const sendPost = async() => {
-    const docRef = await addDoc(collection(db, "news"), {
+  const sendPost = async () => {
+    if(loading) return;
+    setLoading(true);
+
+    const docRef = await addDoc(collection(db, "/news"), {
+      id: session.user.uid,
       title: title,
       content: content,
       timestamp: serverTimestamp(),
+      username: session.user.username,
     });
 
-    const imageRef = ref(storage, `news/${docRef.id}/image`);
+    const imageRef = ref(storage, `/news/${docRef.id}/image`);
     if(photoFile){
       await uploadString(imageRef, photoFile, "data_url").then(async()=>{
         const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "news", docRef.id), {
+        await updateDoc(doc(db, "/news", docRef.id), {
           image: downloadURL,
         })
       })
     }
 
-    setTitle("");
-    setContent("");
-    setPhotoFile(null);
+    setInput("");
+    setSelectedFile(null);
+    setLoading(false);
   };
 
   const addImageChecker = (e) => {
