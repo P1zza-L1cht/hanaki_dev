@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhotoFilm, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { useSession } from "next-auth/react";
 import { useState, useRef } from 'react';
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { getDownloadURL, uploadString } from 'firebase/storage';
 
 export default function InformationForm() {
-  const { data: session } = useSession();
   const [ title, setTitle ] = useState("");
   const [ content, setContent ] = useState("");
   const [ photoFile, setPhotoFile ] = useState(null);
@@ -15,17 +14,24 @@ export default function InformationForm() {
 
   const sendPost = async() => {
     const docRef = await addDoc(collection(db, "news"), {
-      id: session.user.uid,
       title: title,
       content: content,
       timestamp: serverTimestamp(),
-      name: session.user.name,
     });
 
-    const imgRef = ref(storage, `posts/${docRef.id}/iamge`);
+    const imageRef = ref(storage, `news/${docRef.id}/image`);
+    if(photoFile){
+      await uploadString(imageRef, photoFile, "data_url").then(async()=>{
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(doc(db, "news", docRef.id), {
+          image: downloadURL,
+        })
+      })
+    }
 
     setTitle("");
     setContent("");
+    setPhotoFile(null);
   };
 
   const addImageChecker = (e) => {

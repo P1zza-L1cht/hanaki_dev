@@ -12,14 +12,14 @@ export default NextAuth({
   ],
 
   pages: {
-    signIn: "/auth/signin"
+    signIn: "/admin/setting"
+  },
+  session: {
+    jwt: true,
+  },
+  secret: process.env.SECRET,
+  jwt: {
+    secret: process.env.JWT_SECRET,
   },
 
-  callbacks: {
-    async session ({ session, token }) {
-      session.user.name = session.user.name.split(" ").join("").toLocaleLowerCase();
-      session.user.uid = token.sub;
-      return session;
-    }
-  },
 })
