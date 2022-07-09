@@ -5,6 +5,7 @@ import InformationForm from "../../components/InformationForm";
 import MerchandiseForm from "../../components/MerchandiseForm";
 import { useState } from 'react';
 
+
 export default function setting() {
   const [formSelect, setFormSelect] = useState(true);
 

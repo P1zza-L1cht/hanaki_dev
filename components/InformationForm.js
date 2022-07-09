@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhotoFilm, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { useSession } from "next-auth/react";
 
 export default function InformationForm() {
+  const { data: session } = useSession();
+
   return (
     <div className="flex flex-col ">
       <div className='flex items-center mb-6'>
