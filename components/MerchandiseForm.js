@@ -130,7 +130,7 @@ export default function MerchandiseForm() {
           </div>
         )}
         <button
-          type="submit"
+          type="button"
           onClick={ sendData }
           disabled={!title.trim() && !content.trim() && !siteUrl.trim()}
           className="
