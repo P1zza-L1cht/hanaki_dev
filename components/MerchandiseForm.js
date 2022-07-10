@@ -4,7 +4,7 @@ import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { useState, useRef } from 'react';
 import { db, storage } from "../firebase";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { getDownloadURL, uploadString } from 'firebase/storage';
+import { getDownloadURL, uploadString, ref } from 'firebase/storage';
 import { useSession } from "next-auth/react";
 
 
@@ -17,30 +17,33 @@ export default function MerchandiseForm() {
   const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
 
-  const sendPost = async () => {
+  const sendData = async () => {
     if(loading) return;
     setLoading(true);
 
-    const docRef = await addDoc(collection(db, "merchandises"), {
+    const docRef = await addDoc(collection(db, "merchandise"), {
       id: session.user.uid,
       title: title,
       content: content,
+      site: siteUrl,
       timestamp: serverTimestamp(),
       username: session.user.username,
     });
 
-    const imageRef = ref(storage, `merchandises/${docRef.id}/image`);
+    const imageRef = ref(storage, `merchandise/${docRef.id}/image`);
     if(photoFile){
       await uploadString(imageRef, photoFile, "data_url").then(async()=>{
         const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "merchandises", docRef.id), {
+        await updateDoc(doc(db, "merchandise", docRef.id), {
           image: downloadURL,
         })
       })
     }
 
-    setInput("");
-    setSelectedFile(null);
+    setTitle("");
+    setContent("");
+    setSiteUrl("");
+    setPhotoFile(null);
     setLoading(false);
   };
 
@@ -128,8 +131,8 @@ export default function MerchandiseForm() {
         )}
         <button
           type="submit"
-          onClick={ sendPost }
-          disabled={!title.trim() && !content.trim()}
+          onClick={ sendData }
+          disabled={!title.trim() && !content.trim() && !siteUrl.trim()}
           className="
           text-white bg-blue-700 hover:bg-blue-800
             focus:ring-4 focus:outline-none focus:ring-blue-300

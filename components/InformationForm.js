@@ -4,7 +4,7 @@ import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { useState, useRef } from 'react';
 import { db, storage } from "../firebase";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { getDownloadURL, uploadString } from 'firebase/storage';
+import { getDownloadURL, uploadString, ref } from 'firebase/storage';
 import { useSession } from "next-auth/react";
 
 export default function InformationForm() {
@@ -14,7 +14,6 @@ export default function InformationForm() {
   const [ photoFile, setPhotoFile ] = useState(null);
   const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
-  console.log(session, title, content);
 
   const sendPost = async () => {
     if(loading) return;
@@ -38,8 +37,9 @@ export default function InformationForm() {
       })
     }
 
-    setInput("");
-    setSelectedFile(null);
+    setTitle("");
+    setContent("");
+    setPhotoFile(null);
     setLoading(false);
   };
 
@@ -111,7 +111,7 @@ export default function InformationForm() {
           </div>
         )}
         <button
-          type="submit"
+          type="button"
           onClick={ sendPost }
           disabled={!title.trim() && !content.trim()}
           className="
