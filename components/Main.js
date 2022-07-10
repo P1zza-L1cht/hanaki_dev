@@ -4,6 +4,7 @@ import Twitter from '../components/Twitter';
 import Merch from '../components/Merch';
 
 export default function Main({movieLists}) {
+
   return (
     <div>
       {/* main visual */}

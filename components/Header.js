@@ -17,7 +17,7 @@ export default function Header() {
         <nav className='flex flex-col md:flex-row items-center justify-center px-0 ml-auto'>
           <p onClick={() => router.push('/about/profile')} className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>About</p>
           <a href="https://www.youtube.com/channel/UCLogCKK4LrSGyRirmfIBl1w" className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>Channel</a>
-          <p className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>News</p>
+          <a href="https://mobile.twitter.com/rin_vt32" className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>Twitter</a>
           <p className='hoverEffect w-[120px] text-center mr-4 bg-pink-100 '>Contact</p>
           {session && (
             <>
