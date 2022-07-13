@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 
 export default function ContactForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -23,7 +24,18 @@ export default function ContactForm() {
     }
   };
 
-  function sendMessage() {
+  const sendMessage = () => {
+    emailjs.sendForm("service_5dz3wom", "template_ali2i45", {
+      title: content.title,
+      mail: content.mail,
+      username: content.username,
+      message: content.message,
+    }, "rlbsI8nQFjwLsoM0c")
+      .then((result) => {
+          console.log("送信成功");
+      }, (error) => {
+          console.log("送信失敗");
+      });
   }
 
   return (
