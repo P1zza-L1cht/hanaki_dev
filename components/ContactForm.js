@@ -1,21 +1,30 @@
-import { useState } from "react"
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function ContactForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [content, setContent] = useState({
     username: "",
     mail: "",
     title: "選択してください",
     message: "",
   });
+  const [isTitle, setIsTitle] = useState(false);
   const [checkModal, setCheckModal] = useState(false);
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   const checker = () => {
-    setCheckModal(true)
+    if(content.title == "選択してください") {
+      setIsTitle(true);
+      return;
+    } else {
+      setIsTitle(false);
+      setCheckModal(true);
+    }
   };
 
-  const sendMessage = () => {
-
-  };
+  function sendMessage() {
+  }
 
   return (
     <div className="h-[100vh]">
@@ -41,43 +50,51 @@ export default function ContactForm() {
           <h2 className="text-2xl font-bold">Contact</h2>
           <p className="mt-2">仕事の依頼、コラボの依頼等はこちら</p>
         </div>
-        <form>
+        <form onSubmit={handleSubmit(checker)}>
           <div className="mb-6 mt-6">
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">名前</label>
-            {content.isUsername && (
+            {errors.username && (
               <p className="text-red-600">名前がありません</p>
             )}
             <input
+              {...register("username", {required: true})}
               onChange={(e) => setContent({...content, username: e.target.value})}
               value={content.name}
               className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${content.isUsername && "border-red-500"}`}
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${errors.username && "border-red-500 text-red-900 placeholder-red-700"}`}
               />
           </div>
           <div className="mb-6">
             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">メールアドレス</label>
+            {errors.mail && (
+              <p className="text-red-600">メールアドレスがありません</p>
+            )}
             <input
+              {...register("mail", {required: true})}
               onChange={(e) => setContent({...content, mail: e.target.value})}
               value={content.mail}
               type="email"
-              className="
+              className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                 focus:ring-blue-500 focus:border-blue-500
-                block w-full p-2.5 "
+                block w-full p-2.5 ${errors.mail && "border-red-500 text-red-900 placeholder-red-700"}`}
               placeholder="adress@sample.com"
             />
           </div>
           <div className="mb-6">
             <label htmlFor="select" className="block mb-2 text-sm font-medium text-gray-900">問い合わせ内容</label>
+            {isTitle && (
+              <p className="text-red-600">内容を選択してください</p>
+            )}
             <select
-              name="workContent"
+              name="title"
               value={content.title}
               onChange={(e) => setContent({...content, title: e.target.value})}
-              className="
+              className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                 focus:ring-blue-500 focus:border-blue-500
-                block w-full p-2.5 "
+                block w-full p-2.5 ${isTitle && "border-red-500 text-gray-900 placeholder-red-700"} `}
             >
               <option value="選択してください">選択してください</option>
               <option value="仕事の依頼（作曲等）">仕事の依頼{"(作曲等)"}</option>
@@ -88,19 +105,22 @@ export default function ContactForm() {
           </div>
           <div className="mb-6">
             <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">問い合わせ内容</label>
+            {errors.message && (
+              <p className="text-red-600">お問い合わせ内容がありません</p>
+            )}
             <textarea
+              {...register("message", {required: true})}
               type="text"
               rows="6"
               onChange={(e) => setContent({...content, message: e.target.value}) }
               value={content.message}
-              className="
+              className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                 focus:ring-blue-500 focus:border-blue-500
-                block w-full p-2.5" />
+                block w-full p-2.5 ${errors.message && "border-red-500 text-red-900 placeholder-red-700"}`} />
           </div>
           <button
-            type="button"
-            onClick={() => checker()}
+            type="submit"
             className="
               text-white bg-blue-700
               hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300
