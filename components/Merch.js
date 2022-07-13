@@ -25,7 +25,6 @@ export default function Merch() {
         <FontAwesomeIcon icon={faCompactDisc} className="text-black px-2" />
       </div>
       <div className="w-full h-[90%] overflow-y-auto mt-3 flex flex-row flex-wrap ">
-
       {items.map((item) => (
         <a
           href={item?.data()?.site}
