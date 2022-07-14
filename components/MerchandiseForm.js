@@ -7,7 +7,6 @@ import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/fi
 import { getDownloadURL, uploadString, ref } from 'firebase/storage';
 import { useSession } from "next-auth/react";
 
-
 export default function MerchandiseForm() {
   const {data: session} = useSession();
   const [title, setTitle] = useState("");
@@ -123,7 +122,7 @@ export default function MerchandiseForm() {
           <div className="relative my-6">
             <FontAwesomeIcon
               icon={faCircleXmark}
-              className="absolute top-1 left-1 cursor-pointer text-white"
+              className="absolute top-1 left-1 cursor-pointer text-white bg-gray-600"
               onClick={() => setPhotoFile(null)}
             />
             <img src={photoFile} alt="" />
