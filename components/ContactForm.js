@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
+import { useRouter } from "next/router";
 
 export default function ContactForm() {
+  const form = useRef();
+  const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [content, setContent] = useState({
     username: "",
@@ -11,7 +15,15 @@ export default function ContactForm() {
   });
   const [isTitle, setIsTitle] = useState(false);
   const [checkModal, setCheckModal] = useState(false);
-  const [sendingMessage, setSendingMessage] = useState(false);
+
+  const sendMessage = () => {
+    emailjs.sendForm(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, form.current, process.env.NEXT_PUBLIC_EMAILJS_USER_ID)
+      .then((result) => {
+          console.log("送信成功");
+      }, (error) => {
+          console.log("送信失敗");
+      });
+  }
 
   const checker = () => {
     if(content.title == "選択してください") {
@@ -19,29 +31,21 @@ export default function ContactForm() {
       return;
     } else {
       setIsTitle(false);
+      sendMessage();
       setCheckModal(true);
     }
   };
 
-  function sendMessage() {
-  }
-
   return (
     <div className="h-[100vh]">
       {checkModal && (
-        <div className="flex flex-col items-center w-[80%] md:w-[50%] mx-auto mt-6 bg-pink-100 p-6">
-          <h3 className="text-2xl font-bold">内容確認</h3>
-          <h4 className="mt-3 text-md">この内容で送信してよろしいですか。</h4>
-          <div className="mt-3 md:text-lg w-[100%] flex flex-col items-start">
-            <p className="mt-3">名前:{content.username}</p>
-            <p className="mt-3">メールアドレス:{content.mail}</p>
-            <p className="mt-3">件名:{content.title}</p>
-            <p className="mt-3">内容:</p>
-            <div className="ml-6 min-h-[150px]">{content.message}</div>
-          </div>
-          <div className="flex">
-            <div className="px-12 mx-3 bg-white hoverEffect hover:bg-sky-500" onClick={() => sendMessage }>送信</div>
-            <div className="px-12 mx-3 bg-white hoverEffect" onClick={() => setCheckModal(false)}>戻る</div>
+        <div className="w-[80%] md:w-[50%] h-[300px] md:h-[500px] mx-auto flex flex-col justify-center items-center bg-sky-400 my-6">
+          <h3 className="text-white font-bold text-2xl mb-10">お問い合わせ内容を送信しました。</h3>
+          <div
+            className="hoverEffect border border-white text-white hover:bg-sky-700"
+            onClick={() => router.push("/")}
+          >
+            ホームへ戻る
           </div>
         </div>
       )}
@@ -50,7 +54,7 @@ export default function ContactForm() {
           <h2 className="text-2xl font-bold">Contact</h2>
           <p className="mt-2">仕事の依頼、コラボの依頼等はこちら</p>
         </div>
-        <form onSubmit={handleSubmit(checker)}>
+        <form onSubmit={handleSubmit(checker)} ref={form}>
           <div className="mb-6 mt-6">
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">名前</label>
             {errors.username && (
@@ -60,6 +64,7 @@ export default function ContactForm() {
               {...register("username", {required: true})}
               onChange={(e) => setContent({...content, username: e.target.value})}
               value={content.name}
+              name="username"
               className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${errors.username && "border-red-500 text-red-900 placeholder-red-700"}`}
@@ -74,6 +79,7 @@ export default function ContactForm() {
               {...register("mail", {required: true})}
               onChange={(e) => setContent({...content, mail: e.target.value})}
               value={content.mail}
+              name="mail"
               type="email"
               className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
@@ -114,6 +120,7 @@ export default function ContactForm() {
               rows="6"
               onChange={(e) => setContent({...content, message: e.target.value}) }
               value={content.message}
+              name="message"
               className={`
                 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                 focus:ring-blue-500 focus:border-blue-500
@@ -127,7 +134,7 @@ export default function ContactForm() {
               font-medium rounded-lg text-sm w-full
               sm:w-auto px-5 py-2.5 text-center"
           >
-            確認
+            送信
           </button>
         </form>
       </div>
