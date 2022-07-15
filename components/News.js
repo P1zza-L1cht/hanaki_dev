@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, orderBy, query, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
