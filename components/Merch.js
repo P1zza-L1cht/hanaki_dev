@@ -29,7 +29,7 @@ export default function Merch() {
       <div className="w-full h-[90%] overflow-y-auto mt-3 flex flex-row flex-wrap justify-center">
       {items.map((item) => (
         <div
-          className="w-[30%] h-[40%] bg-rose-100 p-2 rounded-lg mx-3 my-3 text-center"
+          className="w-[80%] md:w-[30%] min-h-[60%] md:h-[40%] bg-rose-100 p-2 rounded-lg mx-3 my-3 text-center"
           key={item.id}
         >
           <div onClick={() => router.push(`${item?.data()?.site}`)} className="flex justify-center mt-6 max-w-[90%] max-h-[70%] cursor-pointer object-contain mx-auto">
