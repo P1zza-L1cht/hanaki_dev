@@ -1,10 +1,10 @@
 export default function About() {
   return (
-    <div className="flex items-center justify-center bg-green-100">
-      <div className="w-[50%] p-16 flex items-center justify-center">
+    <div className="md:flex items-center justify-center bg-green-100 pb-6">
+      <div className="md:w-[50%] p-16 flex items-center justify-center">
         <img src="/images/mainvisual.jpg" alt="花木リン　ビジュアル" className="w-[80%]"/>
       </div>
-      <div className="w-[50%]">
+      <div className="w-[80%] mx-auto md:w-[50%]">
         <h2 className="text-2xl font-bold mb-3">プロフィール</h2>
         <p>
           名前は、花木リン(はなき りん)です。<br/>
