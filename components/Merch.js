@@ -1,15 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCompactDisc } from "@fortawesome/free-solid-svg-icons";
+import { faCompactDisc, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import Moment from 'react-moment';
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 
 
 export default function Merch() {
   const [items, setItems] = useState([]);
   const router = useRouter();
+  const { data: session } = useSession();
 
   useEffect(() => onSnapshot(
     query(collection(db, "merchandises"), orderBy("timestamp", "desc")),
@@ -29,7 +31,7 @@ export default function Merch() {
       <div className="w-full h-[90%] overflow-y-auto mt-3 flex flex-row flex-wrap justify-center">
       {items.map((item) => (
         <div
-          className="w-[80%] md:w-[30%] min-h-[60%] md:h-[40%] bg-rose-100 p-2 rounded-lg mx-3 my-3 text-center"
+          className="w-[80%] md:w-[30%] min-h-[60%] md:min-h-[40%] bg-rose-100 p-2 rounded-lg mx-3 my-3 text-center"
           key={item.id}
         >
           <div onClick={() => router.push(`${item?.data()?.site}`)} className="flex justify-center mt-6 max-w-[90%] max-h-[70%] cursor-pointer object-contain mx-auto">
@@ -47,6 +49,15 @@ export default function Merch() {
           <div>
             <p>{item?.data()?.content}</p>
           </div>
+          {session?.user.uid === item?.data().id && (
+            <div className='flex ml-3 my-3'>
+              <div
+                className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/merch/${item.id}`)}><FontAwesomeIcon icon={faPenToSquare} 
+              />
+                編集
+              </div>
+            </div>
+          )}
         </div>
       ))}
       </div>
