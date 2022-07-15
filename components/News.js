@@ -5,11 +5,13 @@ import { collection, onSnapshot, orderBy, query, deleteDoc, doc } from 'firebase
 import { db } from '../firebase';
 import Moment from 'react-moment';
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 
 export default function News() {
   const [news, setNews] = useState([]);
   const {data: session} = useSession();
+  const router = useRouter();
 
   useEffect(() => onSnapshot(
     query(collection(db, "news"), orderBy("timestamp", "desc")),
@@ -18,7 +20,7 @@ export default function News() {
     }
   ), []);
 
-  async function deleteInfo() {
+  async function deleteInfo(info) {
     if(window.confirm('投稿を消去してもよろしいですか？')){
       deleteDoc(doc(db, "news", info.id))
       router.push("/");
@@ -62,8 +64,8 @@ export default function News() {
               </div>
               {session?.user.uid === info?.data().id && (
                 <div className='flex ml-3 my-3'>
-                  <div className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/admin/edit/info/${info.id}`)}><FontAwesomeIcon icon={faPenToSquare} />編集</div>
-                  <div className="mr-3 cursor-pointer text-red-500 py-1 px-4 rounded-lg hover:bg-red-500 hover:text-white" ><FontAwesomeIcon icon={faTrashCan} />削除</div>
+                  <div
+                  className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/news/${info.id}`)}><FontAwesomeIcon icon={faPenToSquare} />編集</div>
                 </div>
               )}
             </div>
