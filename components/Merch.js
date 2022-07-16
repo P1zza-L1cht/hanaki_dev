@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCompactDisc, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCompactDisc, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -52,9 +52,16 @@ export default function Merch() {
           {session?.user.uid === item?.data().id && (
             <div className='flex ml-3 my-3'>
               <div
-                className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/merch/${item.id}`)}><FontAwesomeIcon icon={faPenToSquare} 
+                className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/merch/${item.id}`)}><FontAwesomeIcon icon={faPenToSquare}
               />
                 編集
+              </div>
+              <div
+                onClick={() => router.push(`/merch/delete/${item.id}`)}
+                className="mr-3 cursor-pointer text-red-500 py-1 px-4 rounded-lg hover:bg-red-500 hover:text-white"
+              >
+              <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
+                削除
               </div>
             </div>
           )}
