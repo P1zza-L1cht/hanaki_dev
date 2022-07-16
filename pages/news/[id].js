@@ -1,4 +1,4 @@
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, deleteDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
@@ -35,18 +35,12 @@ export default function InfoPage() {
     if(session.user.username === "油井陽輝") {
       updateDoc(doc(db, "news", `${id}`), {
         title: dataInfo.title,
-        content: dataInfo.content
+        content: dataInfo.content,
+        id: session.user.uid,
       })
     }
     router.push("/");
   };
-
-  async function deleteInfo() {
-    if(window.confirm('投稿を消去してもよろしいですか？')){
-      deleteDoc(doc(db, "news", `${id}`))
-      router.push("/");
-    }
-  }
 
   return (
     <>
@@ -66,7 +60,7 @@ export default function InfoPage() {
           <input
             {...register("title", {required: true})}
             type="text"
-            onChange={(e) => setDataInfo({title: e.target.value})}
+            onChange={(e) => setDataInfo({...dataInfo, title: e.target.value})}
             value={dataInfo.title}
             className="
               bg-gray-50 border border-gray-300
@@ -85,7 +79,7 @@ export default function InfoPage() {
             {...register("content", {required: true})}
             type="textarea"
             rows="4"
-            onChange={(e) => setDataInfo({content: e.target.value})}
+            onChange={(e) => setDataInfo({...dataInfo, content: e.target.value})}
             value={dataInfo.content}
             className="
               bg-gray-50 border border-gray-300
@@ -104,15 +98,6 @@ export default function InfoPage() {
             送信
         </button>
       </form>
-      <div
-        onClick={deleteInfo}
-        className="
-          hoverEffect mt-6 w-[10%] flex justify-center items-center 
-          border border-red-700 hover:bg-red-700 hover:text-white"
-        >
-        <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
-        削除
-      </div>
     </div>
     <Footer />
     </>

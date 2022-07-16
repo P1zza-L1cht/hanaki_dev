@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, orderBy, query, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -20,13 +20,6 @@ export default function News() {
     }
   ), []);
 
-  async function deleteInfo(info) {
-    if(window.confirm('投稿を消去してもよろしいですか？')){
-      deleteDoc(doc(db, "news", info.id))
-      router.push("/");
-    }
-  }
-
   return (
     <div className="h-[500px] lg:h-[800px] w-full bg-emerald-200 px-3 py-2">
       <div className="flex items-center justify-center my-2">
@@ -35,7 +28,7 @@ export default function News() {
         </h2>
         <FontAwesomeIcon icon={faCircleInfo} className="text-emerald-600 px-2"/>
       </div>
-      <div className="w-full h-full overflow-y-auto">
+      <div className="w-full h-[90%] overflow-y-auto">
 
         {/* info card */}
         {news.map((info) => (
@@ -63,10 +56,21 @@ export default function News() {
                 <p>{info?.data()?.content}</p>
               </div>
               {session?.user.uid === info?.data().id && (
+                <>
                 <div className='flex ml-3 my-3'>
                   <div
-                  className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/news/${info.id}`)}><FontAwesomeIcon icon={faPenToSquare} />編集</div>
+                    className="mr-3 cursor-pointer text-green-500 py-1 px-4 rounded-lg hover:bg-green-500 hover:text-white" onClick={() => router.push(`/news/${info.id}`)}><FontAwesomeIcon icon={faPenToSquare} />
+                    編集
+                  </div>
+                  <div
+                    onClick={() => router.push(`/news/delete/${info.id}`)}
+                    className="mr-3 cursor-pointer text-red-500 py-1 px-4 rounded-lg hover:bg-red-500 hover:text-white"
+                    >
+                    <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
+                    削除
+                  </div>
                 </div>
+                </>
               )}
             </div>
           </div>
