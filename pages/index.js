@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Main from '../components/Main';
 
-
-export default function Home() {
+export default function Home({movieLists}) {
   return (
-    <div>
+    <div className='w-full'>
       <Head>
         <meta charSet='utf-8' />
         <title>Hanaki Official website</title>
@@ -22,10 +22,23 @@ export default function Home() {
       </Head>
 
       <Header />
-      <main>
-        <p className='text-blue-500'>Hello World</p>
-      </main>
+      <Main movieLists={movieLists} />
       <Footer />
     </div>
   )
 }
+
+// https://www.googleapis.com/youtube/v3/playlistItems
+
+export async function getServerSideProps() {
+  const movieLists = await fetch(
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL8ZgeeHTO61CDsP5_Pe3qJxsxTgtZLczc&maxResults=20&key=${process.env.YOUTUBE_API_KEY}`
+  ).then((res) => res.json());
+
+  return{
+    props: {
+      movieLists,
+    },
+  };
+}
+
