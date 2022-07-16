@@ -2,16 +2,19 @@ import News from '../components/News';
 import Youtube from '../components/Youtube';
 import Twitter from '../components/Twitter';
 import Merch from '../components/Merch';
+import Image from 'next/image';
 
 export default function Main({movieLists}) {
 
   return (
     <div>
       {/* main visual */}
-      <div className='w-full'>
-        <img
-          src="/images/main_pc.png"
+      <div className='w-full relative'>
+        <Image
+          src="/main_pc.png"
           alt="Top Visual"
+          width={1800}
+          height={1000}
         />
       </div>
 

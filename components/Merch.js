@@ -6,6 +6,7 @@ import { db } from '../firebase';
 import Moment from 'react-moment';
 import { useRouter } from 'next/router';
 import { useSession } from "next-auth/react";
+import Image from 'next/image';
 
 
 export default function Merch() {
@@ -39,7 +40,7 @@ export default function Merch() {
               <img src={item?.data()?.image} alt="Merchandise image" width="60%" height="60%" />
             )}
             {!item.data().image && (
-              <img src="/images/noImage.png" alt="Merchandise image" width="60%" height="60%" />
+              <Image src="/noImage.png" alt="Merchandise image" width="60%" height="60%" />
             )}
           </div>
           <div className="flex mt-3 items-center w-[100%]">

@@ -1,8 +1,10 @@
+import Image from "next/image"
+
 export default function About() {
   return (
     <div className="md:flex items-center justify-center bg-green-100 pb-6">
       <div className="md:w-[50%] p-16 flex items-center justify-center">
-        <img src="/images/mainvisual.jpg" alt="花木リン　ビジュアル" className="w-[80%]"/>
+        <Image src="/mainvisual.jpg" width={500} height={800} alt="花木リン　ビジュアル"/>
       </div>
       <div className="w-[80%] mx-auto md:w-[50%]">
         <h2 className="text-2xl font-bold mb-3">プロフィール</h2>

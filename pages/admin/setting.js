@@ -4,19 +4,16 @@ import Footer from '../../components/Footer';
 import InformationForm from "../../components/InformationForm";
 import MerchandiseForm from "../../components/MerchandiseForm";
 import { useState } from 'react';
-import { useSession, signIn, SignOut, getProviders } from "next-auth/react";
+import { useSession, signIn, getProviders } from "next-auth/react";
 import { useRouter } from "next/router";
+import Image from 'next/image';
 
-export default function setting({providers}) {
+
+export default function Setting({providers}) {
   const router = useRouter();
   const {data: session} = useSession();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [formSelect, setFormSelect] = useState(true);
-
-  const notAdmin = () => {
-    SignOut;
-    router.push("/");
-  };
 
   return (
     <div className='w-full'>
@@ -54,7 +51,7 @@ export default function setting({providers}) {
                     </div>
                   ))}
                 </div>
-                <img src="/images/hanaki_def.png" alt="花木リン キャラ" />
+                <Image src="/hanaki_def.png" width={800} height={900} alt="花木リン キャラ" />
               </div>
             </>
           )}

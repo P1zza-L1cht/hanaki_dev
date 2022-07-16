@@ -3,6 +3,7 @@ import { useSession, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToggleOff, faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Image from "next/image";
 
 export default function Header() {
   const router = useRouter();
@@ -10,12 +11,13 @@ export default function Header() {
   const [toggle, setToggle] = useState(false);
 
   return (
-      <header className='flex flex-col md:flex-row  items-center h-[60px] md:h-[80px] md:py-2 px-10 bg-pink-300 sticky top-0 z-50 relative'>
+      <header className='flex flex-col md:flex-row  items-center h-[60px] md:h-[80px] md:py-2 px-10 bg-pink-300 sticky top-0 z-50'>
         <div className="cursor-pointer" onClick={() => router.push('/')}>
-          <img
-            src="/images/hanaki_logo.png"
+          <Image
+            src="/hanaki_logo.png"
             alt='花木リン Official Website'
-            className='h-[60px] md:h-full'
+            width={130}
+            height={60}
           />
         </div>
         <div className="md:hidden absolute top-1 right-5 text-[2.3rem]" onClick={() => setToggle(!toggle)}>
